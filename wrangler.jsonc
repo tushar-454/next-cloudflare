@@ -13,21 +13,26 @@
     "compatibility_date": "2026-05-05",
     "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
     "assets": {
+        // for static assets surved from Cloudflare
         "binding": "ASSETS",
         "directory": ".open-next/assets",
     },
     "images": {
+        // for next image optimization <Image /> component
         // Enable image optimization
         // see https://opennext.js.org/cloudflare/howtos/image
         "binding": "IMAGES",
     },
+    // for
     "kv_namespaces": [
+        // for key value storage, here i store single todo
         {
             "binding": "KV",
             "id": "f15e2321941b4b68ad4e131ec90180ca",
         },
     ],
     "d1_databases": [
+        // for relational database, here i store customers data now. it's like neon or supabase but it from cloudflare
         {
             "binding": "D1_NC",
             "database_name": "next-cloudflare",
