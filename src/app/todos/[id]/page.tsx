@@ -1,6 +1,7 @@
 import { isTodo } from "@/lib/isTodo";
 import { TODO } from "@/types";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
+import DeleteCachedButton from "./_components/delete-cached-button";
 
 export default async function TodoDetails({
     params,
@@ -43,6 +44,7 @@ export default async function TodoDetails({
 
             <h2 className="text-2xl font-semibold">Status</h2>
             <p>{todo.completed ? "Completed" : "Not Completed"}</p>
+            <DeleteCachedButton id={id} />
         </div>
     );
 }
