@@ -23,16 +23,54 @@ export default async function Customers() {
             </div>
             <div>
                 {customers.length > 0 ? (
-                    <ul className="list-disc list-inside">
-                        {customers.map((customer) => (
-                            <li key={customer.customer_id}>
-                                {customer.customer_name} -{" "}
-                                {customer.contact_name} - {customer.address} -{" "}
-                                {customer.city} - {customer.postal_code} -{" "}
-                                {customer.country}
-                            </li>
-                        ))}
-                    </ul>
+                    <table className="w-full border-collapse border border-gray-300">
+                        <thead>
+                            <tr>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    Customer Name
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    Contact Name
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    Address
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    City
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    Postal Code
+                                </th>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    Country
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {customers.map((customer) => (
+                                <tr key={customer.customer_id}>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {customer.customer_name}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {customer.contact_name}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {customer.address}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {customer.city}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {customer.postal_code}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        {customer.country}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 ) : (
                     <p>No customers found.</p>
                 )}
