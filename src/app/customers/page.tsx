@@ -1,6 +1,8 @@
 import { Customer } from "@/types";
 import { getCloudflareContext } from "@opennextjs/cloudflare";
 
+export const dynamic = "force-dynamic";
+
 export default async function Customers() {
     const { env } = await getCloudflareContext({ async: true });
     const d1 = env.D1_NC;
