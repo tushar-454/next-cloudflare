@@ -20,6 +20,9 @@ export default async function Home() {
                 <li className="underline">
                     <Link href="/images">Images</Link>
                 </li>
+                <li className="underline">
+                    <Link href="/customers">Customers</Link>
+                </li>
             </ul>
             <div className="flex gap-10 items-start lg:flex-row flex-col">
                 <ul className="space-y-2">

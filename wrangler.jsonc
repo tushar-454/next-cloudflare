@@ -27,6 +27,13 @@
             "id": "f15e2321941b4b68ad4e131ec90180ca",
         },
     ],
+    "d1_databases": [
+        {
+            "binding": "D1_NC",
+            "database_name": "next-cloudflare",
+            "database_id": "9738a85b-1e65-48e2-bd04-e8f5eb624f2f",
+        },
+    ],
     "services": [
         {
             // Self-reference service binding, the service name must match the worker name
