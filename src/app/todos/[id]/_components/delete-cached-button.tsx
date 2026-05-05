@@ -8,7 +8,7 @@ export default async function DeleteCachedButton({ id }: { id: string }) {
 
         if (result.success) {
             console.log("Cache deleted successfully");
-            router.refresh();
+            router.push("/");
         } else {
             console.error("Failed to delete cache:", result.error);
         }
