@@ -21,6 +21,12 @@
         // see https://opennext.js.org/cloudflare/howtos/image
         "binding": "IMAGES",
     },
+    "kv_namespaces": [
+        {
+            "binding": "KV",
+            "id": "f15e2321941b4b68ad4e131ec90180ca",
+        },
+    ],
     "services": [
         {
             // Self-reference service binding, the service name must match the worker name
