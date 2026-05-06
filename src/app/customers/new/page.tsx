@@ -1,10 +1,12 @@
 "use client";
 
 import { createCustomer } from "@/actions/customers";
+import { CreateCustomerInput } from "@/validation/create-user.schema";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useTransition } from "react";
+import { ChangeEvent, useState, useTransition } from "react";
 
 export default function CreateNewCustomer() {
+    const [error, setError] = useState<CreateCustomerInput | null>(null);
     const router = useRouter();
     const [isPending, startTransition] = useTransition();
 
@@ -15,11 +17,13 @@ export default function CreateNewCustomer() {
             try {
                 const formData = new FormData(e.currentTarget);
                 const result = await createCustomer(formData);
-
+                console.log(result);
                 if (result.success) {
                     router.push("/customers");
                 } else {
-                    alert("Error: " + result.error);
+                    console.log(result.error);
+                    const parse = JSON.parse(result.error as string);
+                    setError(parse);
                 }
             } catch (error) {
                 console.error("Error:", error);
@@ -34,7 +38,7 @@ export default function CreateNewCustomer() {
 
             <form
                 onSubmit={handleSubmit}
-                className="space-y-4 max-w-md"
+                className="space-y-4 max-w-xl"
             >
                 <div>
                     <label className="block text-sm font-medium">
@@ -43,9 +47,13 @@ export default function CreateNewCustomer() {
                     <input
                         type="text"
                         name="customer_name"
-                        required
                         className="w-full px-3 py-2 border rounded-md"
                     />
+                    {error?.customer_name && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {error.customer_name}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -55,9 +63,13 @@ export default function CreateNewCustomer() {
                     <input
                         type="text"
                         name="contact_name"
-                        required
                         className="w-full px-3 py-2 border rounded-md"
                     />
+                    {error?.contact_name && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {error.contact_name}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -65,9 +77,13 @@ export default function CreateNewCustomer() {
                     <input
                         type="text"
                         name="address"
-                        required
                         className="w-full px-3 py-2 border rounded-md"
                     />
+                    {error?.address && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {error.address}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -75,9 +91,13 @@ export default function CreateNewCustomer() {
                     <input
                         type="text"
                         name="city"
-                        required
                         className="w-full px-3 py-2 border rounded-md"
                     />
+                    {error?.city && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {error.city}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -87,9 +107,13 @@ export default function CreateNewCustomer() {
                     <input
                         type="text"
                         name="postal_code"
-                        required
                         className="w-full px-3 py-2 border rounded-md"
                     />
+                    {error?.postal_code && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {error.postal_code}
+                        </p>
+                    )}
                 </div>
 
                 <div>
@@ -97,9 +121,13 @@ export default function CreateNewCustomer() {
                     <input
                         type="text"
                         name="country"
-                        required
                         className="w-full px-3 py-2 border rounded-md"
                     />
+                    {error?.country && (
+                        <p className="text-red-500 text-sm mt-1">
+                            {error.country}
+                        </p>
+                    )}
                 </div>
 
                 <button
