@@ -45,7 +45,7 @@ function getLocalD1Url(): string {
 
         if (sqliteFile) {
             const fullPath = path.join(basePath, sqliteFile);
-            console.log(`✅ Found local D1 database: ${fullPath}`);
+
             return fullPath;
         }
     } catch (err) {

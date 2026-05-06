@@ -12,17 +12,13 @@ export default async function TodoDetails({
     const { env } = await getCloudflareContext({ async: true });
     const kv = env.KV;
 
-    console.log(`Fetching todo with id: ${id} from KV...`);
-
     const jsonValue = await kv.get(id, { type: "json" });
 
     let todo: TODO;
 
     if (isTodo(jsonValue)) {
-        console.log("Cache hit, using cached value...");
         todo = jsonValue;
     } else {
-        console.log("Cache miss, fetching from API...");
         const res = await fetch(
             `https://jsonplaceholder.typicode.com/todos/${id}`,
         );
@@ -33,7 +29,7 @@ export default async function TodoDetails({
         }
 
         todo = fetchedTodo;
-        console.log("Setting KV with expiration of 2 minutes...");
+
         await kv.put(id, JSON.stringify(todo), { expirationTtl: 60 * 2 });
     }
 

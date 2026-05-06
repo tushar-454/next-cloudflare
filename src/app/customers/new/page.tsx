@@ -17,11 +17,10 @@ export default function CreateNewCustomer() {
             try {
                 const formData = new FormData(e.currentTarget);
                 const result = await createCustomer(formData);
-                console.log(result);
+
                 if (result.success) {
                     router.push("/customers");
                 } else {
-                    console.log(result.error);
                     const parse = JSON.parse(result.error as string);
                     setError(parse);
                 }

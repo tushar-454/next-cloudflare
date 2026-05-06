@@ -20,7 +20,7 @@ export function zodValidation<T>(
 
             fieldErrors[key] += issue.message + " ";
         }
-        console.log(fieldErrors);
+
         throw new Error(
             JSON.stringify(isFieldErrors ? fieldErrors : errors[0].message),
         );

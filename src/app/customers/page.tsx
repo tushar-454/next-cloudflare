@@ -6,7 +6,6 @@ import DeleteCustomerButton from "./_components/delete-customer-button";
 export default async function Customers() {
     const db = await getDbAsync();
     const customers = await db.select().from(customersSchema);
-    console.log("Customers from Drizzle ORM:", customers);
 
     return (
         <div className="space-y-4">

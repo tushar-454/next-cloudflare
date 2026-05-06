@@ -7,7 +7,6 @@ export async function deleteTodoFromCache(id: number | string) {
     const kv = env.KV;
     try {
         await kv.delete(id.toString());
-        console.log(`✅ Deleted KV for id: ${id}`);
         return { success: true };
     } catch (error) {
         console.error("Failed to delete from KV:", error);
