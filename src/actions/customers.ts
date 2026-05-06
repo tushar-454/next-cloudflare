@@ -7,6 +7,7 @@ import {
     CreateCustomerInput,
     createCustomerSchema,
 } from "@/validation/create-user.schema";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
 // create customer action
@@ -46,6 +47,27 @@ export async function createCustomer(formData: FormData) {
                 error instanceof Error
                     ? error.message
                     : "Failed to create customer",
+        };
+    }
+}
+
+// delete customer action
+export async function deleteCustomer(customerId: number) {
+    try {
+        const db = await getDbAsync();
+        await db
+            .delete(customerSchema)
+            .where(eq(customerSchema.customer_id, customerId));
+        revalidatePath("/customers");
+        return { success: true };
+    } catch (error) {
+        console.error("Error deleting customer:", error);
+        return {
+            success: false,
+            error:
+                error instanceof Error
+                    ? error.message
+                    : "Failed to delete customer",
         };
     }
 }

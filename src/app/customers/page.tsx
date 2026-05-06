@@ -1,6 +1,7 @@
 import { getDbAsync } from "@/lib/db";
 import { customers as customersSchema } from "@/schema/schema.d1";
 import Link from "next/link";
+import DeleteCustomerButton from "./_components/delete-customer-button";
 
 export default async function Customers() {
     const db = await getDbAsync();
@@ -39,6 +40,9 @@ export default async function Customers() {
                                 <th className="border border-gray-300 px-4 py-2 text-left">
                                     Country
                                 </th>
+                                <th className="border border-gray-300 px-4 py-2 text-left">
+                                    Actions
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +65,11 @@ export default async function Customers() {
                                     </td>
                                     <td className="border border-gray-300 px-4 py-2">
                                         {customer.country}
+                                    </td>
+                                    <td className="border border-gray-300 px-4 py-2">
+                                        <DeleteCustomerButton
+                                            customerId={customer.customer_id}
+                                        />
                                     </td>
                                 </tr>
                             ))}
