@@ -1,12 +1,12 @@
 "use server";
 
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getDbAsync } from "@/lib/db";
+import { customers as customerSchema } from "@/schema/schema.d1";
+import { revalidatePath } from "next/cache";
 
 // create customer action
 export async function createCustomer(formData: FormData) {
-    const { env } = await getCloudflareContext({ async: true });
-    const d1 = env.D1_NC;
-
+    const db = await getDbAsync();
     const customerName = formData.get("customer_name") as string;
     const contactName = formData.get("contact_name") as string;
     const address = formData.get("address") as string;
@@ -15,14 +15,19 @@ export async function createCustomer(formData: FormData) {
     const country = formData.get("country") as string;
 
     try {
-        const result = await d1
-            .prepare(
-                "INSERT INTO customers (customer_name, contact_name, address, city, postal_code, country) VALUES (?, ?, ?, ?, ?, ?)",
-            )
-            .bind(customerName, contactName, address, city, postalCode, country)
-            .run();
-
-        return { success: true, data: result };
+        const newCustomer = await db
+            .insert(customerSchema)
+            .values({
+                customer_name: customerName,
+                contact_name: contactName,
+                address,
+                city,
+                postal_code: postalCode,
+                country,
+            })
+            .returning();
+        revalidatePath("/customers");
+        return { success: true, data: newCustomer };
     } catch (error) {
         console.error("Error creating customer:", error);
         return { success: false, error: "Failed to create customer" };

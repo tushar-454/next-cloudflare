@@ -1,20 +1,15 @@
-import { Customer } from "@/types";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { getDbAsync } from "@/lib/db";
+import { customers as customersSchema } from "@/schema/schema.d1";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
-
 export default async function Customers() {
-    const { env } = await getCloudflareContext({ async: true });
-    const d1 = env.D1_NC;
+    const db = await getDbAsync();
+    const customers = await db.select().from(customersSchema);
+    console.log("Customers from Drizzle ORM:", customers);
 
-    const { results: customers } = await d1
-        .prepare("SELECT * FROM customers")
-        .all<Customer>();
-
-    console.log(customers);
     return (
         <div className="space-y-4">
+            <div></div>
             <div>
                 <h1>List of users from D1 Databases</h1>{" "}
                 <Link href="/customers/new">

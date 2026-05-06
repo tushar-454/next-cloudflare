@@ -12,10 +12,17 @@
         "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
         "cf-typegen": "wrangler types --env-interface CloudflareEnv ./cloudflare-env.d.ts",
         "db:migrate:local:init": "wrangler d1 execute next-cloudflare --local --file=./schema.sql",
-        "db:migrate:prod:init": "wrangler d1 execute next-cloudflare --file=./schema.sql"
+        "db:migrate:prod:init": "wrangler d1 execute next-cloudflare --file=./schema.sql",
+        "db:generate": "drizzle-kit generate",
+        "db:migrate:local": "wrangler d1 migrations apply D1_NC --local",
+        "db:migrate:prod": "wrangler d1 migrations apply D1_NC --remote",
+        "db:studio": "drizzle-kit studio",
+        "migrate:local": "npm run db:generate && npm run db:migrate:local",
+        "migrate:prod": "npm run db:generate && npm run db:migrate:prod"
     },
     "dependencies": {
         "@opennextjs/cloudflare": "^1.19.1",
+        "drizzle-orm": "^0.45.2",
         "next": "16.2.3",
         "react": "19.1.5",
         "react-dom": "19.1.5"
@@ -26,6 +33,7 @@
         "@types/node": "^20",
         "@types/react": "^19.1.5",
         "@types/react-dom": "^19.1.5",
+        "drizzle-kit": "^0.31.10",
         "eslint": "^9",
         "eslint-config-next": "15.4.6",
         "tailwindcss": "^4",
