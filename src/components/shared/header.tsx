@@ -12,7 +12,7 @@ export default function Header() {
                     <Link href="/images">Images</Link>
                 </li>
                 <li className="underline">
-                    <Link href="/customers">Customers</Link>
+                    <Link href="/users">Users</Link>
                 </li>
             </ul>
         </header>

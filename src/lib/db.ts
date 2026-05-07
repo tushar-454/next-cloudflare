@@ -1,15 +1,14 @@
-import * as schema from "@/schema/schema.d1";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
-import { drizzle } from "drizzle-orm/d1";
-import { cache } from "react";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
 
-export const getDb = cache(() => {
-    const { env } = getCloudflareContext();
-    return drizzle(env.D1_NC, { schema });
-});
+const connectionString = process.env.DATABASE_URL!;
 
-// This is the one to use for static routes (i.e. ISR/SSG)
-export const getDbAsync = cache(async () => {
-    const { env } = await getCloudflareContext({ async: true });
-    return drizzle(env.D1_NC, { schema });
-});
+export const getDb = () => {
+    const client = postgres(connectionString, { prepare: false });
+    return drizzle({ client });
+};
+
+export const getDbAsync = async () => {
+    const client = postgres(connectionString, { prepare: false });
+    return drizzle({ client });
+};

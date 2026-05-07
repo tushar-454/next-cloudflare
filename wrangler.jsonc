@@ -39,6 +39,14 @@
             "database_id": "9738a85b-1e65-48e2-bd04-e8f5eb624f2f",
         },
     ],
+    // "hyperdrive": [
+    //     {
+    //         "binding": "HYPERDRIVE",
+    //         "id": "47ac59f92b1c4f9cb27a52fee9b54b0c",
+    //         // Optional. Can be used to connect to a local database for local development with `wrangler dev`
+    //         "localConnectionString": "postgresql://postgres.fgymlcxwmojcmvklwmqf:kQ2ogUyzOJrgbguS@aws-1-ap-northeast-1.pooler.supabase.com:6543/postgres",
+    //     },
+    // ],
     "services": [
         {
             // Self-reference service binding, the service name must match the worker name
