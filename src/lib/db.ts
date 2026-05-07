@@ -1,14 +1,26 @@
-import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
+import * as schema from "@/schema/schema.hyperdrive";
+import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
+import { cache } from "react";
 
-const connectionString = process.env.DATABASE_URL!;
+export const getDb = cache(() => {
+    const { env } = getCloudflareContext();
+    const connectionString = env.HYPERDRIVE.connectionString;
+    const pool = new Pool({
+        connectionString,
+        maxUses: 1,
+    });
+    return drizzle({ client: pool, schema });
+});
 
-export const getDb = () => {
-    const client = postgres(connectionString, { prepare: false });
-    return drizzle({ client });
-};
-
-export const getDbAsync = async () => {
-    const client = postgres(connectionString, { prepare: false });
-    return drizzle({ client });
-};
+// This is the one to use for static routes (i.e. ISR/SSG)
+export const getDbAsync = cache(async () => {
+    const { env } = await getCloudflareContext({ async: true });
+    const connectionString = env.HYPERDRIVE.connectionString;
+    const pool = new Pool({
+        connectionString,
+        maxUses: 1,
+    });
+    return drizzle({ client: pool, schema });
+});

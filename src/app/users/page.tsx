@@ -9,7 +9,6 @@ export default async function Users() {
 
     return (
         <div className="space-y-4">
-            <div></div>
             <div>
                 <h1>List of users from Hyperdrive Databases</h1>{" "}
                 <Link href="/users/new">
